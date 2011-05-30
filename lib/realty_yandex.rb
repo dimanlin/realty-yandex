@@ -1,7 +1,5 @@
-require 'spree_core'
-require 'spree_yandex_market_hooks'
 
-module SpreeYandexMarket
+module RealtyYandex
   class Engine < Rails::Engine
 
     config.autoload_paths += %W(#{config.root}/lib)

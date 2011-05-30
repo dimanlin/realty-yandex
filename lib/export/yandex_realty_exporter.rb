@@ -2,9 +2,9 @@
 require 'nokogiri'
 
 module Export
-  class YandexRealtyExporter
+  class YandexMarketExporter
     include ActionController::UrlWriter
-    attr_accessor :host
+    attr_accessor :host, :currencies
     
     DEFAULT_OFFER = "simple"
 

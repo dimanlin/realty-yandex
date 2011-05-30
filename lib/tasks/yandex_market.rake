@@ -12,27 +12,23 @@ namespace :spree_yandex_market do
     end
   end
 
-  desc "Generate Yandex.Market export file"
-  task :generate_ym => :environment do
-    generate_export_file 'yandex_market'
+  desc "Generate Yandex.Realty export file"
+  task :generate_r => :environment do
+    generate_export_file 'yandex_realty'
   end
 
-  desc "Generate Torg.mail.ru export file"
-  task :generate_torg_mail_ru => :environment do
-    generate_export_file 'torg_mail_ru'
-  end
-
-  def generate_export_file torgovaya_sistema='yandex_market'
-    directory = File.join(Rails.root, 'public', "#{torgovaya_sistema}")
+  def generate_export_file 
+    directory = File.join(Rails.root, 'public', "#{realty_system}")
     mkdir_p directory unless File.exist?(directory)
     require File.expand_path(File.join(Rails.root, "config/environment"))
-    require File.join(File.dirname(__FILE__), '..', "export/#{torgovaya_sistema}_exporter.rb")
+    require File.join(File.dirname(__FILE__), '..', "export/yandex_realty_exporter.rb")
+
     ::Time::DATE_FORMATS[:ym] = "%Y-%m-%d %H:%M"
-    yml_xml                   = Export.const_get("#{torgovaya_sistema.camelize}Exporter").new.export
+    yml_xml = Export.const_get("YandexRealtyExporter").new.export
     puts 'saving file...'
 
     # Создаем файл, сохраняем в нужной папке,
-    tfile_basename = "#{torgovaya_sistema}_#{Time.now.strftime("%Y_%m_%d__%H_%M")}"
+    tfile_basename = "yandex_realty_#{Time.now.strftime("%Y_%m_%d__%H_%M")}"
     tfile          = File.new(File.join(directory, tfile_basename), "w+")
     tfile.write(yml_xml)
     tfile.close
