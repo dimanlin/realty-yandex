@@ -13,7 +13,7 @@ module Export
     end
     
     def export
-      @config = Spree::YandexMarket::Config.instance
+#      @config = Spree::YandexMarket::Config.instance
       @host = @config.preferred_url.sub(%r[^http://],'').sub(%r[/$], '')
       ActionController::Base.asset_host = @config.preferred_url
       
